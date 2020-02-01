@@ -131,7 +131,6 @@ if __name__ == "__main__":
     print(80 * "=")
     parser, embeddings, train_data, dev_data, test_data = load_and_preprocess_data(debug)
 
-    import ipdb; ipdb.set_trace()
     start = time.time()
     model = ParserModel(embeddings)
     parser.model = model

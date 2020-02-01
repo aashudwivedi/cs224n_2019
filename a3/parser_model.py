@@ -74,10 +74,10 @@ class ParserModel(nn.Module):
         ###     Dropout: https://pytorch.org/docs/stable/nn.html#torch.nn.Dropout
 
         self.embed_to_hidden = nn.Linear(self.embed_size, self.hidden_size)
-        torch.nn.init.xavier_uniform(self.embed_to_hidden, gain=1)
+        torch.nn.init.xavier_uniform(self.embed_to_hidden.weight, gain=1)
         self.dropout = nn.Dropout(p=self.dropout_prob)
         self.hidden_to_logits = nn.Linear(self.hidden_size, self.n_classes)
-        torch.nn.init.xavier_uniform(self.hidden_to_logits, gain=1)
+        torch.nn.init.xavier_uniform(self.hidden_to_logits.weight, gain=1)
         ### END YOUR CODE
 
     def embedding_lookup(self, t):

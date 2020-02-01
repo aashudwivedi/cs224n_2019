@@ -118,18 +118,14 @@ def minibatch_parse(sentences, model, batch_size):
     partial_parses = [PartialParse(sentence) for sentence in sentences]
     unfinished_parses = partial_parses[:]
 
-    batch_index = 0
     while len(unfinished_parses) > 0:
         parses = unfinished_parses[:batch_size]
         transitions = model.predict(parses)
 
-        for i, transition in enumerate(transitions):
-            parses[i].parse_step(transition)
-
-        for i, parse in enumerate(parses):
-            # check if parsing is complete if so remove from list
+        for transition, parse in zip(transitions, parses):
+            parse.parse_step(transition)
             if len(parse.buffer) == 0 and len(parse.stack) == 1:
-                unfinished_parses.pop(i)
+                unfinished_parses.remove(parse)
 
     dependencies = [parse.dependencies for parse in partial_parses]
     ### END YOUR CODE
